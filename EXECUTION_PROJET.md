@@ -43,14 +43,26 @@ Ne pas lancer `uvicorn` depuis `web-demos/`, sinon Python ne trouve pas le modul
 
 Si le dossier `venv` n'existe pas encore :
 
+**Sous Linux/macOS :**
 ```bash
 python3 -m venv venv
 ```
 
+**Sous Windows :**
+```cmd
+python -m venv venv
+```
+
 Activer l'environnement virtuel :
 
+**Sous Linux/macOS :**
 ```bash
 source venv/bin/activate
+```
+
+**Sous Windows :**
+```cmd
+venv\Scripts\activate
 ```
 
 Le terminal doit afficher quelque chose comme :
@@ -79,8 +91,9 @@ Si `serial` manque :
 pip install pyserial
 ```
 
-## 5. Verifier le port Arduino sous Linux
+## 5. Verifier le port Arduino
 
+**Sous Linux/macOS :**
 Brancher l'Arduino, puis executer :
 
 ```bash
@@ -94,26 +107,41 @@ Les ports les plus courants sont :
 /dev/ttyUSB0
 ```
 
+**Sous Windows :**
+Ouvrir le **Gestionnaire de périphériques** (Device Manager) et regarder dans la section **Ports (COM et LPT)**.
+Les ports les plus courants sont `COM3`, `COM4`, etc.
+
 Le projet essaie de detecter automatiquement ces ports. Si besoin, forcer le port avec `ARDUINO_PORT`.
 
 ## 6. Lancer l'interface web
 
 Depuis la racine du projet :
 
+**Sous Linux/macOS :**
 ```bash
 python3 -m uvicorn web_app.main:app --host 127.0.0.1 --port 8000
 ```
 
+**Sous Windows :**
+```cmd
+python -m uvicorn web_app.main:app --host 127.0.0.1 --port 8000
+```
+
 Si tu veux forcer le port Arduino :
 
+**Sous Linux/macOS :**
 ```bash
 ARDUINO_PORT=/dev/ttyACM0 python3 -m uvicorn web_app.main:app --host 127.0.0.1 --port 8000
 ```
 
-Ou, si ton Arduino est sur `/dev/ttyUSB0` :
+**Sous Windows (CMD) :**
+```cmd
+set ARDUINO_PORT=COM3 && python -m uvicorn web_app.main:app --host 127.0.0.1 --port 8000
+```
 
-```bash
-ARDUINO_PORT=/dev/ttyUSB0 python3 -m uvicorn web_app.main:app --host 127.0.0.1 --port 8000
+**Sous Windows (PowerShell) :**
+```powershell
+$env:ARDUINO_PORT="COM3"; python -m uvicorn web_app.main:app --host 127.0.0.1 --port 8000
 ```
 
 ## 7. Ouvrir l'application
